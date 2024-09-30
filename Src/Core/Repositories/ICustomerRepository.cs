@@ -1,8 +1,8 @@
-﻿using Core.Entities.Customer;
+﻿using Core.Entities.CustomerAggregate;
 
 namespace Core.Repositories;
 
 public interface ICustomerRepository
 {
-    Task<Customer> GetCustomerByCpf(string cpf);
+    Task<Customer?> GetCustomerByCpfAsync(string cpf, CancellationToken cancellationToken);
 }

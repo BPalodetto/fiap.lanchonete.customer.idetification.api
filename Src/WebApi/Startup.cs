@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WebApi.Extensions;
+using WebApi.Middlewares;
 
 namespace WebApi;
 
@@ -19,25 +20,8 @@ public class Startup
     {
         services.AddControllers();
         services.AddCore();
-
-        var key = Encoding.ASCII.GetBytes("819563c4-c1a2-48f5-a409-32565ae08405");
-        services.AddAuthentication(x =>
-        {
-            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-        .AddJwtBearer(x =>
-        {
-            x.RequireHttpsMetadata = false;
-            x.SaveToken = true;
-            x.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false
-            };
-        });
+        services.AddInfrastructure();
+        services.ConfigureAuth();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -54,6 +38,8 @@ public class Startup
 
         app.UseAuthentication();
         app.UseAuthorization();
+
+        app.UseMiddleware(typeof(ErrorMiddleware));
 
         app.UseEndpoints(endpoints =>
         {
