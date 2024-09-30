@@ -1,4 +1,4 @@
-﻿namespace Core.Entities.Customer;
+﻿namespace Core.Entities.CustomerAggregate;
 
 public class Customer
 {

@@ -17,8 +17,11 @@ public class CustomerController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Authenticate(CustomerAuthenticateRequest request, CancellationToken cancellationToken)
     {
-        var response = await _customerService.GetCustomerToken(request.Cpf, cancellationToken);
-
+        var response = await _customerService.GetCustomerTokenAsync(request.Cpf, cancellationToken);
+        if (string.IsNullOrEmpty(response))
+        {
+            return NotFound();
+        }
         return Ok(response);
     }
 

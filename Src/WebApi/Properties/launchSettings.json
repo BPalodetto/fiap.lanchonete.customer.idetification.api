@@ -4,7 +4,9 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "AUTH_KEY": "819563c4-c1a2-48f5-a409-32565ae08405",
+        "FIAP_LANCHONET_API_URI": "https://localhost:7036"
       },
       "applicationUrl": "https://localhost:53578;http://localhost:53579"
     }
